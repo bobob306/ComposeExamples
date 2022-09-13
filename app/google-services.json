@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "173383899881",
+    "project_id": "composetesting",
+    "storage_bucket": "composetesting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:173383899881:android:125cc55ef1c42a1bcaee78",
+        "android_client_info": {
+          "package_name": "com.benshapiro.composeexamples"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "173383899881-6oqvt6cc4oh08qpsd9ec3sjfjaklb763.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDFLAQwUR5-zTRJFSLIw_TiGDvVJmfs4A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "173383899881-6oqvt6cc4oh08qpsd9ec3sjfjaklb763.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
