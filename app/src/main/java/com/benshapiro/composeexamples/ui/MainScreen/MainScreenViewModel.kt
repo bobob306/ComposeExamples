@@ -2,6 +2,8 @@ package com.benshapiro.composeexamples.ui.MainScreen
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavController
+import com.benshapiro.composeexamples.Screen
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -44,5 +46,9 @@ class MainScreenViewModel @Inject constructor(
 
     private fun validateNumberField() {
         Log.d("Number fields", "valid")
+    }
+
+    fun toAnotherScreen(navController: NavController) {
+        navController.navigate(Screen.AnotherScreen.route)
     }
 }

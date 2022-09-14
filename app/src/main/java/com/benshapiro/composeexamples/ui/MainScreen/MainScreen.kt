@@ -53,7 +53,7 @@ fun MainScreen(
             ComposeExamplesButton(
                 buttonName = "To another screen",
                 onClick = {
-                    navController.navigate(Screen.AnotherScreen.route)
+                    viewModel.toAnotherScreen(navController)
                     Log.d("Another screen button", "Clicked")
                 },
             )
