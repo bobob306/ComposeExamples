@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import com.benshapiro.composeexamples.Screen
 import com.benshapiro.composeexamples.base.*
 
 @Composable
@@ -34,7 +33,7 @@ fun MainScreen(
                 rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name")
             val editableUserInputStateAge =
                 rememberEditableUserInputState(boxName = "Age", hint = "Enter your age")
-            namesForm(
+            NamesForm(
                 editableUserInputStateFirstName,
                 editableUserInputStateLastName,
                 editableUserInputStateAge
@@ -62,7 +61,7 @@ fun MainScreen(
 }
 
 @Composable
-fun namesForm(
+fun NamesForm(
     editableUserInputStateFirstName: EditableUserInputState,
     editableUserInputStateLastName: EditableUserInputState,
     editableUserInputStateAge: EditableUserInputState
@@ -82,7 +81,7 @@ fun MainScreenPreview() {
         rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name")
     val editableUserInputStateAge =
         rememberEditableUserInputState(boxName = "Age", hint = "Enter your age")
-    namesForm(
+    NamesForm(
         editableUserInputStateFirstName,
         editableUserInputStateLastName,
         editableUserInputStateAge,

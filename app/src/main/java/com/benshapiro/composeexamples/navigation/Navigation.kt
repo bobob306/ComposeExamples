@@ -7,6 +7,7 @@ import androidx.navigation.compose.rememberNavController
 import com.benshapiro.composeexamples.Screen
 import com.benshapiro.composeexamples.ui.AnotherScreen.AnotherScreen
 import com.benshapiro.composeexamples.ui.MainScreen.MainScreen
+import com.benshapiro.composeexamples.ui.ViewUserScreen.ViewUserScreen
 
 @Composable
 fun Navigation() {
@@ -19,6 +20,9 @@ fun Navigation() {
         }
         composable(route = Screen.AnotherScreen.route) {
             AnotherScreen(navController = navController)
+        }
+        composable(route = Screen.ViewUserScreen.route) {
+            ViewUserScreen(navController = navController)
         }
     }
 }

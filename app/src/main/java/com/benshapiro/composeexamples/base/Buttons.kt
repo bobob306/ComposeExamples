@@ -31,10 +31,7 @@ fun ComposeExamplesButton(
                 .padding(horizontal = 16.dp)
                 .padding(bottom = 8.dp)
                 .align(Alignment.CenterVertically)
-                .widthIn(
-                    min = 64.dp,
-                    max = 320.dp
-                ),
+                .width(200.dp),
         ) {
             Text(
                 text = buttonName,
