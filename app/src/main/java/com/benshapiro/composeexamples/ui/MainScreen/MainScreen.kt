@@ -56,6 +56,13 @@ fun MainScreen(
                     Log.d("Another screen button", "Clicked")
                 },
             )
+            ComposeExamplesButton(
+                buttonName = "To view people screen",
+                onClick = {
+                    viewModel.toViewPeopleScreen(navController)
+                    Log.d("View people screen btn", "Clicked")
+                },
+            )
         }
     }
 }
