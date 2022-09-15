@@ -1,8 +1,10 @@
 package com.benshapiro.composeexamples.ui.ViewUserScreen
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.Center
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
@@ -10,6 +12,8 @@ import androidx.compose.material.Surface
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.benshapiro.composeexamples.base.CircularProgressBar
@@ -31,8 +35,9 @@ fun ViewUserScreen(
     ) {
         persons?.let {
             LazyColumn(
-                horizontalAlignment = CenterHorizontally,
-                verticalArrangement = Center
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Top,
+                modifier = Modifier.padding(all = 16.dp)
             ) {
                 items(
                     items = persons
