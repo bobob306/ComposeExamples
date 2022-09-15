@@ -7,9 +7,9 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.runtime.*
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.benshapiro.composeexamples.base.CircularProgressBar
@@ -19,8 +19,10 @@ import com.benshapiro.composeexamples.base.ComposeExamplesTextBox
 @Composable
 fun ViewUserScreen(
     navController: NavController,
-    viewModel: ViewUserScreenViewModel = viewModel(),
+    viewModel: ViewUserScreenViewModel = viewModel()
 ) {
+//    val viewModel: ViewUserScreenViewModel = viewModel()
+
     val persons = viewModel.dataOrException.data
 
     Surface(

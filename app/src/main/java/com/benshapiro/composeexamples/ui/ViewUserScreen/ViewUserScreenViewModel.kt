@@ -8,17 +8,14 @@ import com.benshapiro.composeexamples.data.DataOrException
 import com.benshapiro.composeexamples.model.Person
 import com.benshapiro.composeexamples.module.AppModule
 import com.benshapiro.composeexamples.repository.PersonsRepository
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
-import dagger.hilt.android.AndroidEntryPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ViewUserScreenViewModel @Inject constructor(
+class ViewUserScreenViewModel @Inject constructor
+    (
     private val repository: PersonsRepository,
-    dataOrException: DataOrException<List<Person>, Exception>
 ) : ViewModel() {
 
     val dataOrException = AppModule.provideDataOrException()
