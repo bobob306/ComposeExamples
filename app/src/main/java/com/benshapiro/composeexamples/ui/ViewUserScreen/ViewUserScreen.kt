@@ -23,7 +23,7 @@ fun ViewUserScreen(
 ) {
 //    val viewModel: ViewUserScreenViewModel = viewModel()
 
-    val persons = viewModel.dataOrException.data
+    val persons = viewModel.personList.value.data
 
     Surface(
         color = MaterialTheme.colors.primaryVariant,
