@@ -9,6 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
@@ -19,6 +20,7 @@ fun MainScreen(
     navController: NavController,
     viewModel: MainScreenViewModel = viewModel(),
 ) {
+    val context = LocalContext.current
     Surface(
         color = MaterialTheme.colors.primaryVariant,
         modifier = Modifier.fillMaxSize()
@@ -35,11 +37,7 @@ fun MainScreen(
             ComposeExamplesButton(
                 buttonName = "Save",
                 onClick = {
-                    viewModel.saveAction(
-                        viewModel.firstNameState.text,
-                        viewModel.lastNameState.text,
-                        viewModel.ageState.text,
-                    )
+                    viewModel.saveAction(context)
                     Log.d("Click", "Registered")
                 },
             )

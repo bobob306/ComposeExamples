@@ -1,6 +1,10 @@
 package com.benshapiro.composeexamples.ui.MainScreen
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.benshapiro.composeexamples.Screen
@@ -34,18 +38,23 @@ class MainScreenViewModel @Inject constructor(
 
     private val db: FirebaseFirestore = Firebase.firestore
 
-    fun saveAction(firstName: String, lastName: String, age: String) {
-        validateTextField(
-            /*TODO(find my validation rules from prices)*/
-        )
+    fun saveAction(context: Context) {
+        if (validateTextField(context)) {
+            createPerson()
+        } else {
+            Toast.makeText(context, "Ensure fields are all entered", Toast.LENGTH_LONG).show()
+        }
         validateNumberField(
             /*TODO(find my validation rules from prices)*/
         )
+    }
+
+    private fun createPerson() {
         val person = Person(
             "",
-            firstName,
-            lastName,
-            age.toInt(),
+            firstNameState.text,
+            lastNameState.text,
+            ageState.text.toInt(),
         )
         db.collection("people")
             .add(person)
@@ -59,8 +68,20 @@ class MainScreenViewModel @Inject constructor(
             }
     }
 
-    private fun validateTextField() {
-        Log.d("Text fields", "valid")
+    private fun validateTextField(context: Context): Boolean {
+        return if (
+            firstNameState.isHint || lastNameState.isHint || ageState.isHint ||
+            firstNameState.text.isBlank() || lastNameState.text.isBlank() ||
+            ageState.text.isBlank() || !ageState.text.isDigitsOnly()
+        ) {
+            Toast.makeText(context, "Ensure fields are all entered", Toast.LENGTH_LONG).show()
+            false
+        } else {
+            Toast.makeText(context, "Person created", Toast.LENGTH_LONG).show()
+            Log.d("Text fields", "valid")
+            true
+        }
+
     }
 
     private fun validateNumberField() {
