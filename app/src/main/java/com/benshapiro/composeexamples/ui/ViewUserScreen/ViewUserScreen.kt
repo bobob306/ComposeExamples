@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.currentRecomposeScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -20,22 +19,18 @@ import androidx.navigation.NavController
 import com.benshapiro.composeexamples.base.CircularProgressBar
 import com.benshapiro.composeexamples.base.ComposeExamplesPersonTextBox
 import com.benshapiro.composeexamples.base.ComposeExamplesTextBox
-import com.benshapiro.composeexamples.model.Person
 
 @Composable
 fun ViewUserScreen(
     navController: NavController,
     viewModel: ViewUserScreenViewModel = viewModel()
 ) {
-//    val viewModel: ViewUserScreenViewModel = viewModel()
-
-    val persons = viewModel.personList.value.data
 
     Surface(
         color = MaterialTheme.colors.primaryVariant,
         modifier = Modifier.fillMaxSize(),
     ) {
-        persons?.let {
+        viewModel.personList.value.let {
             LazyColumn(
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Top,
@@ -44,9 +39,10 @@ fun ViewUserScreen(
                     .fillMaxSize()
             ) {
                 items(
-                    items = persons
+                    items = viewModel.personList.value.data!!
                 ) { person ->
-                    ComposeExamplesPersonTextBox(person = person
+                    ComposeExamplesPersonTextBox(
+                        person = person
                     ) {
                         viewModel.deletePerson(person)
                     }
