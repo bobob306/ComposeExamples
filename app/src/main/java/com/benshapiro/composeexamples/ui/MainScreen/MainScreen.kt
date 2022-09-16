@@ -88,9 +88,20 @@ fun MainScreenPreview() {
         rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name")
     val editableUserInputStateAge =
         rememberEditableUserInputState(boxName = "Age", hint = "Enter your age")
-    NamesForm(
-        editableUserInputStateFirstName,
-        editableUserInputStateLastName,
-        editableUserInputStateAge,
-    )
+    Surface(
+        color = MaterialTheme.colors.primaryVariant,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            horizontalAlignment = CenterHorizontally,
+            verticalArrangement = Arrangement.Center,
+        )
+        {
+            NamesForm(
+                editableUserInputStateFirstName,
+                editableUserInputStateLastName,
+                editableUserInputStateAge,
+            )
+        }
+    }
 }
