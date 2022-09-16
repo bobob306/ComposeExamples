@@ -75,11 +75,11 @@ fun NamesForm(
 @Composable
 fun MainScreenPreview() {
     val editableUserInputStateFirstName =
-        rememberEditableUserInputState(boxName = "First name", hint = "Enter first name")
+        rememberEditableUserInputState(boxName = "First name", hint = "Enter first name", false)
     val editableUserInputStateLastName =
-        rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name")
+        rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name", false)
     val editableUserInputStateAge =
-        rememberEditableUserInputState(boxName = "Age", hint = "Enter your age")
+        rememberEditableUserInputState(boxName = "Age", hint = "Enter your age", false)
     Surface(
         color = MaterialTheme.colors.primaryVariant,
         modifier = Modifier.fillMaxSize()

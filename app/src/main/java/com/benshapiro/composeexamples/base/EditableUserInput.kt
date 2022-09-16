@@ -22,7 +22,7 @@ class EditableUserInputState(
     private val boxName: String? = null,
     private val hint: String,
     initialText: String,
-    private val savePressed: Boolean = false
+    private val savePressed: Boolean? = false
 ) {
     var text by mutableStateOf(initialText)
     val isHint: Boolean get() = text == hint
