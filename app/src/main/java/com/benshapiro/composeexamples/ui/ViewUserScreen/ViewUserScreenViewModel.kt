@@ -43,6 +43,13 @@ class ViewUserScreenViewModel @Inject constructor
         }
     }
 
+    fun deletePerson(person: Person){
+        viewModelScope.launch {
+            repository.deletePerson(person)
+            getPersons()
+        }
+    }
+
 //    private fun loadPersonDatabase() {
 //        db.collection("people")
 //            .get()

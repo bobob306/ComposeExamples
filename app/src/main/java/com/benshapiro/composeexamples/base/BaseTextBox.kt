@@ -41,7 +41,8 @@ fun ComposeExamplesTextBox(
 
 @Composable
 fun ComposeExamplesPersonTextBox(
-    person: Person
+    person: Person,
+    deleteOnClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -59,7 +60,7 @@ fun ComposeExamplesPersonTextBox(
             Modifier.fillMaxWidth(),
             TopEnd
         ) {
-            DeleteButton {}
+            DeleteButton {deleteOnClick()}
         }
         Row(
             modifier = Modifier
@@ -111,15 +112,17 @@ private fun PreviewComposeExamplesTextBox(
 @Composable
 private fun PreviewComposeExamplesPersonTextBox() {
     val testPerson = Person(
+        id = "egg",
         "James",
         "Whicker",
-        30
+        30,
+
     )
     Surface(
         color = MaterialTheme.colors.primaryVariant,
         modifier = Modifier.fillMaxWidth()
     ) {
-        ComposeExamplesPersonTextBox(person = testPerson)
+        ComposeExamplesPersonTextBox(person = testPerson, {})
     }
 
 }

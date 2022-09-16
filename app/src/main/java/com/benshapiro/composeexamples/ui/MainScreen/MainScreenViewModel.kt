@@ -25,6 +25,7 @@ class MainScreenViewModel @Inject constructor(
             /*TODO(find my validation rules from prices)*/
         )
         val person = Person(
+            "",
             firstName,
             lastName,
             age.toInt(),
