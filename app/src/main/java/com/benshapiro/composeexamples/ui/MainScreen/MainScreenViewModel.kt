@@ -23,17 +23,20 @@ class MainScreenViewModel @Inject constructor(
     val firstNameState: EditableUserInputState = EditableUserInputState(
         boxName = "First name",
         hint = "Enter first name",
-        initialText = "Enter first name"
+        initialText = "Enter first name",
+        false
     )
     val lastNameState: EditableUserInputState = EditableUserInputState(
         boxName = "Last name",
         hint = "Enter last name",
-        initialText = "Enter last name"
+        initialText = "Enter last name",
+        false
     )
     val ageState: EditableUserInputState = EditableUserInputState(
         boxName = "Age",
         hint = "Enter age",
-        initialText = "Enter age"
+        initialText = "Enter age",
+        false
     )
 
     private val db: FirebaseFirestore = Firebase.firestore

@@ -11,7 +11,7 @@ import com.benshapiro.composeexamples.ui.theme.ComposeExamplesTheme
 @Composable
 fun ClickableTextField(){
     val text =
-        rememberEditableUserInputState(null, hint = "Enter some text")
+        rememberEditableUserInputState(null, hint = "Enter some text", false)
     TextField(
         value = text.text,
         onValueChange = { text.text = it },
