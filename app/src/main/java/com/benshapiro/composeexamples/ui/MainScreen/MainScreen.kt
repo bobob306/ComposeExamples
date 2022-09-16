@@ -27,24 +27,18 @@ fun MainScreen(
             horizontalAlignment = CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
-            val editableUserInputStateFirstName =
-                rememberEditableUserInputState(boxName = "First name", hint = "Enter first name")
-            val editableUserInputStateLastName =
-                rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name")
-            val editableUserInputStateAge =
-                rememberEditableUserInputState(boxName = "Age", hint = "Enter your age")
             NamesForm(
-                editableUserInputStateFirstName,
-                editableUserInputStateLastName,
-                editableUserInputStateAge
+                viewModel.firstNameState,
+                viewModel.lastNameState,
+                viewModel.ageState
             )
             ComposeExamplesButton(
                 buttonName = "Save",
                 onClick = {
                     viewModel.saveAction(
-                        editableUserInputStateFirstName.text,
-                        editableUserInputStateLastName.text,
-                        editableUserInputStateAge.text,
+                        viewModel.firstNameState.text,
+                        viewModel.lastNameState.text,
+                        viewModel.ageState.text,
                     )
                     Log.d("Click", "Registered")
                 },
@@ -69,13 +63,13 @@ fun MainScreen(
 
 @Composable
 fun NamesForm(
-    editableUserInputStateFirstName: EditableUserInputState,
-    editableUserInputStateLastName: EditableUserInputState,
-    editableUserInputStateAge: EditableUserInputState
+    firstNameState: EditableUserInputState,
+    lastNameState: EditableUserInputState,
+    ageState: EditableUserInputState
 ) {
-    ComposeExamplesEditableTextUserInput(state = editableUserInputStateFirstName)
-    ComposeExamplesEditableTextUserInput(state = editableUserInputStateLastName)
-    ComposeExamplesEditableNumberUserInput(state = editableUserInputStateAge)
+    ComposeExamplesEditableTextUserInput(state = firstNameState)
+    ComposeExamplesEditableTextUserInput(state = lastNameState)
+    ComposeExamplesEditableNumberUserInput(state = ageState)
 }
 
 

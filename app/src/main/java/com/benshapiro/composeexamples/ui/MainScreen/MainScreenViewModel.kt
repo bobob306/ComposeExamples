@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.benshapiro.composeexamples.Screen
+import com.benshapiro.composeexamples.base.EditableUserInputState
+import com.benshapiro.composeexamples.base.rememberEditableUserInputState
 import com.benshapiro.composeexamples.model.Person
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -14,6 +16,28 @@ import javax.inject.Inject
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
 ) : ViewModel() {
+
+    val firstNameState : EditableUserInputState = EditableUserInputState(
+        boxName = "First name",
+        hint = "Enter first name",
+        initialText = "Enter first name"
+    )
+    val lastNameState : EditableUserInputState = EditableUserInputState(
+        boxName = "Last name",
+        hint = "Enter last name",
+        initialText = "Enter last name"
+    )
+    val ageState : EditableUserInputState = EditableUserInputState(
+        boxName = "Age",
+        hint = "Enter age",
+        initialText = "Enter age"
+    )
+//    val editableUserInputStateFirstName =
+//        rememberEditableUserInputState(boxName = "First name", hint = "Enter first name")
+//    val editableUserInputStateLastName =
+//        rememberEditableUserInputState(boxName = "Last name", hint = "Enter last name")
+//    val editableUserInputStateAge =
+//        rememberEditableUserInputState(boxName = "Age", hint = "Enter your age")
 
     private val db: FirebaseFirestore = Firebase.firestore
 
