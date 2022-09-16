@@ -21,35 +21,38 @@ import com.benshapiro.composeexamples.R
 class EditableUserInputState(
     private val boxName: String? = null,
     private val hint: String,
-    initialText: String
+    initialText: String,
+    private val savePressed: Boolean = false
 ) {
     var text by mutableStateOf(initialText)
     val isHint: Boolean get() = text == hint
     var boxNameText by mutableStateOf(boxName)
+    val isSavePressed by mutableStateOf(savePressed)
 
     companion object {
         val Saver: Saver<EditableUserInputState, *> = listSaver(
-            save = { listOf(it?.boxName ?: "", it.hint, it.text) }
+            save = { listOf(it?.boxName ?: "", it.hint, it.text, it.isSavePressed) }
         ) {
             EditableUserInputState(
-                boxName = it[0],
-                hint = it[1],
-                initialText = it[2]
+                boxName = it[0] as String,
+                hint = it[1] as String,
+                initialText = it[2] as String,
+                savePressed = it[3] as Boolean
             )
         }
     }
 }
 
 @Composable
-fun rememberEditableUserInputState(boxName: String?, hint: String): EditableUserInputState =
+fun rememberEditableUserInputState(boxName: String?, hint: String, savePressed: Boolean): EditableUserInputState =
     rememberSaveable(hint, saver = EditableUserInputState.Saver) {
         // make the initial text the same as the hint text
-        EditableUserInputState(boxName, hint, hint)
+        EditableUserInputState(boxName, hint, hint, savePressed)
     }
 
 @Composable
 fun ComposeExamplesEditableTextUserInput(
-    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = ""),
+    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = "", savePressed = false),
 ) {
     Row(
         modifier = Modifier
@@ -63,7 +66,7 @@ fun ComposeExamplesEditableTextUserInput(
 
 @Composable
 fun ComposeExamplesEditableTextUserInputOld(
-    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = ""),
+    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = "", savePressed = false),
 ) {
     ComposeExamplesBaseUserTextInput(
         modifier = Modifier.fillMaxWidth(),
@@ -102,7 +105,7 @@ fun ComposeExamplesEditableTextUserInputOld(
 
 @Composable
 fun ComposeExamplesEditableNumberUserInput(
-    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = ""),
+    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = "", savePressed = false),
 ) {
     Row(
         modifier = Modifier
@@ -115,7 +118,7 @@ fun ComposeExamplesEditableNumberUserInput(
 
 @Composable
 fun ComposeExamplesEditableNumberUserInputOld(
-    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = ""),
+    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = "", savePressed = false),
 ) {
     ComposeExamplesBaseUserNumberInput(
         modifier = Modifier.fillMaxWidth(),
@@ -169,7 +172,7 @@ fun ComposeExamplesEditableNumberUserInputOld(
 
 @Composable
 fun ComposeExamplesEditableBoxInput(
-    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = ""),
+    state: EditableUserInputState = rememberEditableUserInputState(boxName = "", hint = "", savePressed = false),
     onClick: () -> Unit = { Log.d("Click", "registered") },
 ) {
     Row {
@@ -198,7 +201,7 @@ fun ComposeExamplesEditableBoxInput(
 @Preview
 @Composable
 fun PreviewCEBoxInput() {
-    val editableTestInputState = rememberEditableUserInputState(boxName = null, hint = "Text")
+    val editableTestInputState = rememberEditableUserInputState(boxName = null, hint = "Text", savePressed = false)
     ComposeExamplesEditableBoxInput(
         state = editableTestInputState,
     )
