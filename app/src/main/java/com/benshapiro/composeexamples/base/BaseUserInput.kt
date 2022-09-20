@@ -2,6 +2,7 @@ package com.benshapiro.composeexamples.base
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsPressedAsState
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.benshapiro.composeexamples.R
 
@@ -64,8 +66,12 @@ fun ComposeExamplesOutlinedTextField(state: EditableUserInputState) {
         placeholder = { state.text },
         label = {
             Text(
-                text = state.boxNameText ?: "",
-                color = Color.White
+                text = if (state.boxErrorMessage == "")
+                { state.boxNameText ?: ""} else
+                { "${state.boxNameText} ${state.boxErrorMessage}" }
+                ,
+                color = if (state.boxErrorMessage == "")
+                { Color.White } else { Color.Red }
             )
         },
         trailingIcon = {
@@ -98,8 +104,12 @@ fun ComposeExamplesOutlinedNumberField(state: EditableUserInputState) {
         placeholder = { state.text },
         label = {
             Text(
-                text = state.boxNameText ?: "",
-                color = Color.White
+                text = if (state.boxErrorMessage == "")
+                { state.boxNameText ?: ""} else
+                { "${state.boxNameText} ${state.boxErrorMessage}" }
+                ,
+                color = if (state.boxErrorMessage == "")
+                { Color.White } else { Color.Red }
             )
         },
         trailingIcon = {
@@ -120,4 +130,22 @@ fun ComposeExamplesOutlinedNumberField(state: EditableUserInputState) {
             .padding(horizontal = 16.dp)
             .padding(bottom = 8.dp)
     )
+}
+
+@Preview
+@Composable
+private fun PreviewOutlinedNumberField(){
+    val testNumState = rememberEditableUserInputState(
+        boxName = "number",
+        hint = "enter number",
+        savePressed = false,
+        errorMessage = "no number entered")
+    Surface(
+        color = MaterialTheme.colors.primaryVariant,
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Column() {
+            ComposeExamplesOutlinedTextField(state = testNumState)
+        }
+    }
 }
