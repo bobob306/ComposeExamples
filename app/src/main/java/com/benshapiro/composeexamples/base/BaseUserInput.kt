@@ -68,7 +68,7 @@ fun ComposeExamplesOutlinedTextField(state: EditableUserInputState) {
             Text(
                 text = if (state.boxErrorMessage == "")
                 { state.boxNameText ?: ""} else
-                { "${state.boxNameText} ${state.boxErrorMessage}" }
+                { "${state.boxNameText} - ${state.boxErrorMessage}" }
                 ,
                 color = if (state.boxErrorMessage == "")
                 { Color.White } else { Color.Red }
@@ -106,7 +106,7 @@ fun ComposeExamplesOutlinedNumberField(state: EditableUserInputState) {
             Text(
                 text = if (state.boxErrorMessage == "")
                 { state.boxNameText ?: ""} else
-                { "${state.boxNameText} ${state.boxErrorMessage}" }
+                { "${state.boxNameText} - ${state.boxErrorMessage}" }
                 ,
                 color = if (state.boxErrorMessage == "")
                 { Color.White } else { Color.Red }
