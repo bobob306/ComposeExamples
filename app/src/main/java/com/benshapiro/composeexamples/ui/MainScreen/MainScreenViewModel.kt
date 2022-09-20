@@ -127,39 +127,35 @@ class MainScreenViewModel @Inject constructor(
         }
     }
 
-    private var _firstNameState: EditableUserInputState = EditableUserInputState(
+    val firstNameState: EditableUserInputState = EditableUserInputState(
         boxName = "First name",
         hint = "Enter first name",
         initialText = "Enter first name",
         false,
         ""
     )
-    val firstNameState get() = _firstNameState
-
-    private var _lastNameState: EditableUserInputState = EditableUserInputState(
+    val lastNameState: EditableUserInputState = EditableUserInputState(
         boxName = "Last name",
         hint = "Enter last name",
         initialText = "Enter last name",
         false,
         ""
     )
-    val lastNameState get() = _lastNameState
 
-    private var _ageState: EditableUserInputState = EditableUserInputState(
+    val ageState: EditableUserInputState = EditableUserInputState(
         boxName = "Age",
         hint = "Enter age",
         initialText = "Enter age",
         false,
         ""
     )
-    val ageState get() = _ageState
 
     private val db: FirebaseFirestore = Firebase.firestore
 
     fun saveAction(context: Context) {
-        _ageState.isSavePressed = true
-        _lastNameState.isSavePressed = true
-        _firstNameState.isSavePressed = true
+        ageState.isSavePressed = true
+        lastNameState.isSavePressed = true
+        firstNameState.isSavePressed = true
         if (validateTextField(context)) {
             createPerson()
         } else {
