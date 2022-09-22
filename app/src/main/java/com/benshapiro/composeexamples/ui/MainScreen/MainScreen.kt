@@ -125,7 +125,7 @@ fun MainScreen(
                             isFocused = focusState.isFocused
                         )
                     },
-                labelResId = "First name",
+                labelResId = firstName.boxName ?: "",
                 keyboardOptions = remember {
                     KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -145,7 +145,7 @@ fun MainScreen(
                             isFocused = focusState.isFocused
                         )
                     },
-                labelResId = "Last name",
+                labelResId = lastName.boxName ?: "",
                 keyboardOptions = remember {
                     KeyboardOptions(
                         keyboardType = KeyboardType.Text,
@@ -167,7 +167,7 @@ fun MainScreen(
                     },
                 onImeKeyAction = viewModel::onAgeImeAction,
                 inputWrapper = age,
-                labelResId = "Age",
+                labelResId = age.boxName ?: "",
                 keyboardOptions = remember {
                     KeyboardOptions(
                         keyboardType = KeyboardType.Number,

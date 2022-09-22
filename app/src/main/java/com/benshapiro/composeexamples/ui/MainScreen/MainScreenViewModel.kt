@@ -41,10 +41,10 @@ enum class FocusedTextFieldKey {
 class MainScreenViewModel @Inject constructor(
     private val handle: SavedStateHandle
 ) : ViewModel() {
-
-    val firstName = handle.getStateFlow(FIRST_NAME, InputWrapper())
-    val lastName = handle.getStateFlow(LAST_NAME, InputWrapper())
-    val age = handle.getStateFlow(AGE, InputWrapper())
+// enter field names in the viewModel rather than the UI layer
+    val firstName = handle.getStateFlow(FIRST_NAME, InputWrapper(boxName = "First name"))
+    val lastName = handle.getStateFlow(LAST_NAME, InputWrapper(boxName = "Last name"))
+    val age = handle.getStateFlow(AGE, InputWrapper(boxName = "Age"))
     private val areInputsValid = combine(firstName, lastName, age) { firstName, lastName, age ->
         firstName.value.isNotEmpty() && firstName.errorId == null &&
         lastName.value.isNotEmpty() && lastName.errorId == null &&

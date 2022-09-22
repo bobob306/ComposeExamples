@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class InputWrapper(
     val value: String = "",
-    val errorId: String? = null
+    val errorId: String? = null,
+    val boxName: String? = null
 ) : Parcelable
