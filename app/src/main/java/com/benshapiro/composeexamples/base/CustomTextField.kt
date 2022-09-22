@@ -31,7 +31,13 @@ fun CustomTextField(
 
 ) {
     val fieldValue = remember {
-        mutableStateOf(TextFieldValue(inputWrapper.value, TextRange(inputWrapper.value.length)))
+        mutableStateOf(
+            TextFieldValue(
+                inputWrapper.value,
+                TextRange(inputWrapper.value.length)
+            // check the text is suitable length to be a name longer than one letter
+            )
+        )
     }
     Column {
         TextField(
