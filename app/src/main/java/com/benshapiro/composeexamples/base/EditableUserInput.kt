@@ -20,10 +20,10 @@ import com.benshapiro.composeexamples.R
 
 class EditableUserInputState(
     private val boxName: String? = null,
-    private val hint: String,
+    private val hint: String? = null,
     initialText: String,
     private val savePressed: Boolean? = false,
-    private val errorMessage: String,
+    private val errorMessage: String? = null,
 ) {
     var text by mutableStateOf(initialText)
     val isHint: Boolean get() = text == hint

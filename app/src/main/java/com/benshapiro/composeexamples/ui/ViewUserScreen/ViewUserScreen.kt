@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.benshapiro.composeexamples.base.CircularProgressBar
+import com.benshapiro.composeexamples.base.ComposeExamplesButton
 import com.benshapiro.composeexamples.base.ComposeExamplesPersonTextBox
 import com.benshapiro.composeexamples.base.ComposeExamplesTextBox
 
@@ -30,41 +31,47 @@ fun ViewUserScreen(
         color = MaterialTheme.colors.primaryVariant,
         modifier = Modifier.fillMaxSize(),
     ) {
-        viewModel.personList.value.let {
-            LazyColumn(
-                horizontalAlignment = Alignment.Start,
-                verticalArrangement = Arrangement.Top,
-                modifier = Modifier
-                    .padding(all = 16.dp)
-                    .fillMaxSize()
-            ) {
-                items(
-                    items = viewModel.personList.value.data!!
-                ) { person ->
-                    ComposeExamplesPersonTextBox(
-                        person = person
-                    ) {
-                        viewModel.deletePerson(person)
+        Column() {
+            ComposeExamplesButton(
+                buttonName = "Return home",
+                onClick = { viewModel.returnHome(navController) }
+            )
+            viewModel.personList.value.let {
+                LazyColumn(
+                    horizontalAlignment = Alignment.Start,
+                    verticalArrangement = Arrangement.Top,
+                    modifier = Modifier
+                        .padding(all = 16.dp)
+                        .fillMaxSize()
+                ) {
+                    items(
+                        items = viewModel.personList.value.data!!
+                    ) { person ->
+                        ComposeExamplesPersonTextBox(
+                            person = person
+                        ) {
+                            viewModel.deletePerson(person)
+                        }
                     }
                 }
             }
         }
-    }
 
-    val e = viewModel.dataOrException.e
-    e?.let {
-        ComposeExamplesTextBox(text = e.message!!)
-    }
+        val e = viewModel.dataOrException.e
+        e?.let {
+            ComposeExamplesTextBox(text = e.message!!)
+        }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize(),
-        verticalArrangement = Center,
-        horizontalAlignment = CenterHorizontally
-    ) {
-        CircularProgressBar(
-            isDisplayed = viewModel.loading.value
-        )
+        Column(
+            modifier = Modifier
+                .fillMaxSize(),
+            verticalArrangement = Center,
+            horizontalAlignment = CenterHorizontally
+        ) {
+            CircularProgressBar(
+                isDisplayed = viewModel.loading.value
+            )
+        }
     }
 }
 //

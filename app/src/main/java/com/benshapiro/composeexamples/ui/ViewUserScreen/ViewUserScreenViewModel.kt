@@ -4,6 +4,8 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.benshapiro.composeexamples.Screen
 import com.benshapiro.composeexamples.data.DataOrException
 import com.benshapiro.composeexamples.model.Person
 import com.benshapiro.composeexamples.module.AppModule
@@ -48,6 +50,10 @@ class ViewUserScreenViewModel @Inject constructor
             repository.deletePerson(person)
             getPersons()
         }
+    }
+
+    fun returnHome(navController: NavController) {
+        navController.navigate(Screen.MainScreen.route)
     }
 
 //    private fun loadPersonDatabase() {
