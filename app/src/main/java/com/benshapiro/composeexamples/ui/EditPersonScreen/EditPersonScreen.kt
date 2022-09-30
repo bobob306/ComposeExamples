@@ -1,4 +1,21 @@
-package com.benshapiro.composeexamples.ui.DataInputScreen
+package com.benshapiro.composeexamples.ui.EditPersonScreen
+
+import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+
+@Composable
+fun EditPersonScreen (
+    navController: NavController,
+    viewModel: EditPersonScreenViewModel = viewModel(),
+    personId: String,
+) {
+    Surface() {
+
+    }
+}
+
 //
 //import android.annotation.SuppressLint
 //import androidx.compose.foundation.layout.*

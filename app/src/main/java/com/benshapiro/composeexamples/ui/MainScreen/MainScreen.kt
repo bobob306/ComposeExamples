@@ -51,9 +51,9 @@ fun MainScreen(
         )
     }
 
-    val firstName by viewModel.firstNameInput.collectAsStateWithLifecycle()
-    val lastName by viewModel.lastNameInput.collectAsStateWithLifecycle()
-    val age by viewModel.ageInput.collectAsStateWithLifecycle()
+//    val firstName by viewModel.firstNameInput.collectAsStateWithLifecycle()
+//    val lastName by viewModel.lastNameInput.collectAsStateWithLifecycle()
+//    val age by viewModel.ageInput.collectAsStateWithLifecycle()
 //    val areInputsValid by viewModel.areInputsValid.collectAsStateWithLifecycle()
 
     val firstNameFocusRequester = remember { FocusRequester() }

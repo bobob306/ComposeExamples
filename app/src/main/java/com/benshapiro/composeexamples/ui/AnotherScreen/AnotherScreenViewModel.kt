@@ -2,7 +2,7 @@ package com.benshapiro.composeexamples.ui.AnotherScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
-import com.benshapiro.composeexamples.Screen
+import com.benshapiro.composeexamples.navigation.Screen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 

@@ -6,8 +6,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
-import com.benshapiro.composeexamples.InputValidator
-import com.benshapiro.composeexamples.Screen
+import com.benshapiro.composeexamples.extensions.InputValidator
+import com.benshapiro.composeexamples.navigation.Screen
 import com.benshapiro.composeexamples.base.ErrorHandlingInputState
 import com.benshapiro.composeexamples.model.Person
 import com.benshapiro.composeexamples.navigation.ScreenEvent

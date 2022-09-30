@@ -11,6 +11,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.twotone.Delete
+import androidx.compose.material.icons.twotone.Edit
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -51,9 +52,25 @@ fun ComposeExamplesButton(
 }
 
 @Composable
-fun DeleteButton(
+fun EditButton(
     onClick: () -> Unit
     ) {
+    IconButton(
+        onClick = onClick,
+        modifier = Modifier
+            .size(64.dp)
+    ) {
+        Icon(
+            Icons.TwoTone.Edit,
+            contentDescription = "Edit user button",
+        )
+    }
+}
+
+@Composable
+fun DeleteButton(
+    onClick: () -> Unit
+) {
     IconButton(
         onClick = onClick,
         modifier = Modifier
@@ -70,6 +87,14 @@ fun DeleteButton(
 @Composable
 private fun PreviewDeleteButton() {
     DeleteButton {
+
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewEditButton() {
+    EditButton {
 
     }
 }

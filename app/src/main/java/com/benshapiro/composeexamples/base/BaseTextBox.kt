@@ -10,6 +10,8 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment.*
+import androidx.compose.ui.Alignment.Companion.BottomEnd
+import androidx.compose.ui.Alignment.Companion.BottomStart
 import androidx.compose.ui.Alignment.Companion.End
 import androidx.compose.ui.Alignment.Companion.Top
 import androidx.compose.ui.Alignment.Companion.TopEnd
@@ -42,7 +44,8 @@ fun ComposeExamplesTextBox(
 @Composable
 fun ComposeExamplesPersonTextBox(
     person: Person,
-    deleteOnClick: () -> Unit
+    deleteOnClick: () -> Unit,
+    onEditClick: () -> Unit
 ) {
     Box(
         modifier = Modifier
@@ -57,8 +60,10 @@ fun ComposeExamplesPersonTextBox(
     )
     {
         Box(
-            Modifier.fillMaxWidth(),
-            TopEnd
+            Modifier
+                .fillMaxWidth()
+                .align(TopEnd),
+            TopEnd,
         ) {
             DeleteButton {deleteOnClick()}
         }
@@ -81,6 +86,17 @@ fun ComposeExamplesPersonTextBox(
                     text = "Age: ${person.age}",
                     lineHeight = 16.sp
                 )
+            }
+        }
+        Box(
+            Modifier
+                .fillMaxWidth()
+                .align(BottomEnd),
+            BottomEnd,
+        )
+        {
+            EditButton {
+                onEditClick()
             }
         }
     }
@@ -122,7 +138,7 @@ private fun PreviewComposeExamplesPersonTextBox() {
         color = MaterialTheme.colors.primaryVariant,
         modifier = Modifier.fillMaxWidth()
     ) {
-        ComposeExamplesPersonTextBox(person = testPerson, {})
+        ComposeExamplesPersonTextBox(person = testPerson, {}, {})
     }
 
 }

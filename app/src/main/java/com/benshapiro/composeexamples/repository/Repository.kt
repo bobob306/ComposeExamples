@@ -2,8 +2,10 @@ package com.benshapiro.composeexamples.repository
 
 import com.benshapiro.composeexamples.data.DataOrException
 import com.benshapiro.composeexamples.model.Person
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
@@ -12,7 +14,7 @@ import javax.inject.Singleton
 
 @Singleton
 class PersonsRepository @Inject constructor(
-    private val queryPersonsByName: Query
+    private val queryPersonsByName: Query,
 ) {
     suspend fun getPersonsFromFirestore(): DataOrException<List<Person>, Exception> {
         val dataOrException = DataOrException<List<Person>, Exception>()
@@ -30,4 +32,18 @@ class PersonsRepository @Inject constructor(
         Firebase.firestore.collection("people").document(person.id).delete()
         getPersonsFromFirestore()
     }
+
+    suspend fun getPersonFromFirestore(id: String): DataOrException<Person, Exception> {
+        val personById = Firebase.firestore.collection("people").document(id)
+        val dataOrException = DataOrException<Person, Exception>()
+        try {
+            personById.get().addOnSuccessListener { documentSnapshot: DocumentSnapshot ->
+                dataOrException.data = documentSnapshot.toObject(Person::class.java)
+            }
+        } catch (e: FirebaseFirestoreException) {
+            dataOrException.e = e
+        }
+        return dataOrException
+    }
+
 }

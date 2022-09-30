@@ -1,4 +1,4 @@
-package com.benshapiro.composeexamples
+package com.benshapiro.composeexamples.extensions
 
 import androidx.core.text.isDigitsOnly
 

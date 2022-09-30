@@ -48,10 +48,10 @@ fun ViewUserScreen(
                         items = viewModel.personList.value.data!!
                     ) { person ->
                         ComposeExamplesPersonTextBox(
-                            person = person
-                        ) {
-                            viewModel.deletePerson(person)
-                        }
+                            person = person,
+                            deleteOnClick = { viewModel.deletePerson(person) },
+                            onEditClick = {viewModel.onEditClick(person, navController)}
+                        )
                     }
                 }
             }
