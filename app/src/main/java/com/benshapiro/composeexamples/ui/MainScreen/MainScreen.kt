@@ -33,7 +33,7 @@ import com.benshapiro.composeexamples.navigation.ScreenEvent
 import com.benshapiro.composeexamples.toast
 
 @SuppressLint("StateFlowValueCalledInComposition")
-@OptIn(ExperimentalComposeUiApi::class, ExperimentalLifecycleComposeApi::class)
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun MainScreen(
     navController: NavController,

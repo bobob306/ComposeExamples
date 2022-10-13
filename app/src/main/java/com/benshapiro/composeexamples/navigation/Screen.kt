@@ -10,7 +10,7 @@ sealed class Screen (val route: String, val arguments: String? = null) {
         return buildString {
             append(route)
             args.forEach { arg ->
-                append("?$arg")
+                append("/$arg")
             }
         }
     }

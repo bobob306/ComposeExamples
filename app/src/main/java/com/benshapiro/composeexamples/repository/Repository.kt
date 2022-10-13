@@ -2,12 +2,12 @@ package com.benshapiro.composeexamples.repository
 
 import com.benshapiro.composeexamples.data.DataOrException
 import com.benshapiro.composeexamples.model.Person
-import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,17 +33,15 @@ class PersonsRepository @Inject constructor(
         getPersonsFromFirestore()
     }
 
-    suspend fun getPersonFromFirestore(id: String): DataOrException<Person, Exception> {
-        val personById = Firebase.firestore.collection("people").document(id)
-        val dataOrException = DataOrException<Person, Exception>()
+    suspend fun getPersonFromFirestore(id: String) : DataOrException<Person, Exception> {
+        val dbPerson = Firebase.firestore.collection("people").document(id)
+        val personData = DataOrException<Person, Exception>()
         try {
-            personById.get().addOnSuccessListener { documentSnapshot: DocumentSnapshot ->
-                dataOrException.data = documentSnapshot.toObject(Person::class.java)
-            }
-        } catch (e: FirebaseFirestoreException) {
-            dataOrException.e = e
+            personData.data = dbPerson.get().await().toObject(Person::class.java)
+            } catch (e: FirebaseFirestoreException) {
+                personData.e = e
         }
-        return dataOrException
+        return personData
     }
 
 }
