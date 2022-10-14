@@ -1,9 +1,7 @@
 package com.benshapiro.composeexamples.ui.EditPersonScreen
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.focus.FocusDirection
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -12,9 +10,7 @@ import com.benshapiro.composeexamples.base.ErrorHandlingInputState
 import com.benshapiro.composeexamples.data.DataOrException
 import com.benshapiro.composeexamples.extensions.InputValidator
 import com.benshapiro.composeexamples.model.Person
-import com.benshapiro.composeexamples.module.AppModule
 import com.benshapiro.composeexamples.navigation.Screen
-import com.benshapiro.composeexamples.navigation.ScreenEvent
 import com.benshapiro.composeexamples.repository.PersonsRepository
 import com.benshapiro.composeexamples.ui.MainScreen.AGE
 import com.benshapiro.composeexamples.ui.MainScreen.FIRST_NAME
@@ -24,9 +20,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -47,7 +41,7 @@ class EditPersonScreenViewModel @Inject constructor(
         )
     val editPerson get() = _editPerson
 
-    fun getPersonById(personId : String) {
+    fun getPersonById(personId: String) {
         viewModelScope.launch {
             loading.value = true
             repository.getPersonFromFirestore(personId)
@@ -79,7 +73,7 @@ class EditPersonScreenViewModel @Inject constructor(
         navController.navigate(Screen.ViewUserScreen.route)
     }
 
-    fun onContinueClick() {
+    fun onContinueClick(navController: NavController) {
         viewModelScope.launch(Dispatchers.Default) {
             if (validateFields()) {
                 editPersonEntry()
@@ -87,15 +81,16 @@ class EditPersonScreenViewModel @Inject constructor(
             if (validateFields()) {
                 delay(500L)
                 onClearClicked()
+                toViewPeopleScreen(navController)
             }
         }
     }
 
-    private fun validateFields() : Boolean {
+    private fun validateFields(): Boolean {
         return if (
             firstNameInput.value.text!!.isBlank() || lastNameInput.value.text!!.isBlank()
             || ageInput.value.text!!.isBlank() || firstNameInput.value.errorMessageLabel != null
-            || lastNameInput.value.errorMessageLabel != null || ageInput.value.errorMessageLabel !=  null
+            || lastNameInput.value.errorMessageLabel != null || ageInput.value.errorMessageLabel != null
         ) false else true
     }
 

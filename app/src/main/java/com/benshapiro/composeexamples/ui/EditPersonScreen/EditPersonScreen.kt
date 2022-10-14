@@ -108,7 +108,7 @@ fun EditPersonScreen(
             ComposeExamplesButton(
                 buttonName = "Save",
                 onClick = {
-                    viewModel.onContinueClick()
+                    viewModel.onContinueClick(navController)
                     Log.d("Click", "Registered")
                 },
             )
