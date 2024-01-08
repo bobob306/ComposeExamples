@@ -81,6 +81,10 @@ fun ComposeExamplesPersonTextBox(
                     text = "Age: ${person.age}",
                     lineHeight = 16.sp
                 )
+                ComposeExamplesTextBox(
+                    text = "Phone number: ${person.phoneNumber}",
+                    lineHeight = 16.sp
+                )
             }
         }
         Box(
@@ -127,6 +131,7 @@ private fun PreviewComposeExamplesPersonTextBox() {
         "James",
         "Whicker",
         30,
+        "07512671574",
 
     )
     Surface(

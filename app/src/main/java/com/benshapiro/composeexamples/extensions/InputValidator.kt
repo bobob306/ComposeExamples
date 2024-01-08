@@ -29,6 +29,15 @@ object InputValidator {
         }
     }
 
+    fun getPhoneNumberErrorIdOrNull(input: String): String? {
+        return when {
+            input.length != 11 -> "Phone number must be 11 digits"
+            input.contains(" ") -> "Phone number cannot contain space"
+            input.isDigitsOnly().not() -> "Phone number must only contain digits"
+            else -> null
+        }
+    }
+
     fun getTestErrorOrNull(input: String): String? {
         return when {
             input.isBlank() -> "Enter a test string "
