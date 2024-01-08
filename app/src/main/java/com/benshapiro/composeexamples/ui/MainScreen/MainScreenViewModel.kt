@@ -23,9 +23,10 @@ import javax.inject.Inject
 const val FIRST_NAME = "first name"
 const val LAST_NAME = "last name"
 const val AGE = "age"
+const val PHONE_NUMBER = "phone number"
 
 enum class FocusedTextFieldKey {
-    FIRST_NAME, LAST_NAME, AGE, NONE
+    FIRST_NAME, LAST_NAME, AGE, PHONE_NUMBER, NONE
 }
 
 @HiltViewModel
@@ -83,6 +84,10 @@ class MainScreenViewModel @Inject constructor
     }
 
     fun onAgeImeAction() {
+        _events.trySend(ScreenEvent.MoveFocus(FocusDirection.Down))
+    }
+
+    fun onPhoneNumberImeAction() {
         onContinueClick()
     }
 
@@ -125,6 +130,7 @@ class MainScreenViewModel @Inject constructor
             firstNameInput.value.text,
             lastNameInput.value.text,
             ageInput.value.text?.toInt(),
+            phoneNumberInput.value.text,
         )
         db.collection("people")
             .add(person)
@@ -138,11 +144,11 @@ class MainScreenViewModel @Inject constructor
             }
     }
 
-    private fun validateFields() : Boolean {
-        return if (
-            firstNameInput.value.text!!.isBlank() || lastNameInput.value.text!!.isBlank()
+    private fun validateFields(): Boolean {
+        return if (firstNameInput.value.text!!.isBlank() || lastNameInput.value.text!!.isBlank()
             || ageInput.value.text!!.isBlank() || firstNameInput.value.errorMessageLabel != null
-            || lastNameInput.value.errorMessageLabel != null || ageInput.value.errorMessageLabel !=  null
+            || lastNameInput.value.errorMessageLabel != null || ageInput.value.errorMessageLabel != null
+            || phoneNumberInput.value.text!!.isBlank() || phoneNumberInput.value.errorMessageLabel != null
         ) false else true
     }
 
@@ -158,7 +164,9 @@ class MainScreenViewModel @Inject constructor
         navController.navigate(Screen.ViewUserScreen.route)
     }
 
-    val firstNameInput = handle.getStateFlow(FIRST_NAME, ErrorHandlingInputState("First name", "Enter first name"))
+    val firstNameInput =
+        handle.getStateFlow(FIRST_NAME, ErrorHandlingInputState("First name", "Enter first name"))
+
     fun onFNInputEntered(input: String) {
         val error = InputValidator.getFirstNameErrorIdOrNull(input)
 //        val errorId = firstNameInput.value.text?.let { InputValidator.getFirstNameErrorIdOrNull(it) }
@@ -169,9 +177,12 @@ class MainScreenViewModel @Inject constructor
         firstNameInput.value.text = ""
         lastNameInput.value.text = ""
         ageInput.value.text = ""
+        phoneNumberInput.value.text = ""
     }
 
-    val lastNameInput = handle.getStateFlow(LAST_NAME, ErrorHandlingInputState("Last name", "Enter last name"))
+    val lastNameInput =
+        handle.getStateFlow(LAST_NAME, ErrorHandlingInputState("Last name", "Enter last name"))
+
     fun onLNInputEntered(input: String) {
         val errorId = InputValidator.getLastNameErrorIdOrNull(input)
         lastNameInput.value.errorMessageLabel = errorId
@@ -181,6 +192,16 @@ class MainScreenViewModel @Inject constructor
     fun onAgeInputEntered(input: String) {
         val errorId = InputValidator.getAgeErrorIdOrNull(input)
         ageInput.value.errorMessageLabel = errorId
+    }
+
+    val phoneNumberInput = handle.getStateFlow(
+        PHONE_NUMBER,
+        ErrorHandlingInputState("Phone Number", "Enter phone number")
+    )
+
+    fun onPhoneNumberEntered(input: String) {
+        val errorId = InputValidator.getPhoneNumberErrorIdOrNull(input)
+        phoneNumberInput.value.errorMessageLabel = errorId
     }
 
 }

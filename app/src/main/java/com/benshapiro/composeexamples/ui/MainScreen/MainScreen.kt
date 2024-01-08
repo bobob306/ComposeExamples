@@ -59,6 +59,7 @@ fun MainScreen(
     val firstNameFocusRequester = remember { FocusRequester() }
     val lastNameFocusRequester = remember { FocusRequester() }
     val ageFocusRequester = remember { FocusRequester() }
+    val phoneNumberFocusRequester = remember { FocusRequester() }
 
     LaunchedEffect(Unit) {
         events.collect { event ->
@@ -84,7 +85,7 @@ fun MainScreen(
 
     Surface(
         color = MaterialTheme.colors.primaryVariant,
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxHeight().fillMaxWidth()
     ) {
         Column(
             horizontalAlignment = CenterHorizontally,
@@ -167,6 +168,28 @@ fun MainScreen(
                         imeAction = ImeAction.Next,
                     )
                 },
+            )
+            ErrorHandlingUserInput(
+                    modifier = Modifier
+                        .focusRequester(firstNameFocusRequester)
+                        .onFocusChanged { focusState ->
+                            viewModel.onTextFieldFocusChanged(
+                                key = FocusedTextFieldKey.PHONE_NUMBER,
+                                isFocused = focusState.isFocused
+                            )
+                        }
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .padding(bottom = 8.dp),
+            state = viewModel.phoneNumberInput,
+            onValueChange = viewModel::onPhoneNumberEntered,
+            onImeKeyAction = { viewModel.onPhoneNumberImeAction() },
+            keyboardOptions = remember {
+                KeyboardOptions(
+                    keyboardType = KeyboardType.Number,
+                    imeAction = ImeAction.Next,
+                )
+            },
             )
             ComposeExamplesButton(
                 buttonName = "Clear",

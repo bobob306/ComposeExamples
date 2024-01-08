@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.produceState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
@@ -21,7 +20,6 @@ import com.benshapiro.composeexamples.base.CircularProgressBar
 import com.benshapiro.composeexamples.base.ComposeExamplesButton
 import com.benshapiro.composeexamples.base.ComposeExamplesPersonTextBox
 import com.benshapiro.composeexamples.base.ComposeExamplesTextBox
-import com.benshapiro.composeexamples.model.Person
 
 @Composable
 fun ViewUserScreen(

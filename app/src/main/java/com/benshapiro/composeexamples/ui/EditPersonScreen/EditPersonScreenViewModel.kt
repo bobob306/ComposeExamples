@@ -13,14 +13,13 @@ import com.benshapiro.composeexamples.model.Person
 import com.benshapiro.composeexamples.navigation.Screen
 import com.benshapiro.composeexamples.repository.PersonsRepository
 import com.benshapiro.composeexamples.ui.MainScreen.AGE
-import com.benshapiro.composeexamples.ui.MainScreen.FIRST_NAME
+import com.benshapiro.composeexamples.ui.MainScreen.*
 import com.benshapiro.composeexamples.ui.MainScreen.LAST_NAME
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -69,17 +68,20 @@ class EditPersonScreenViewModel @Inject constructor(
         ageInput.value.errorMessageLabel = errorId
     }
 
+    val phoneNumberInput = handle.getStateFlow(PHONE_NUMBER, ErrorHandlingInputState("Phone Number"))
+    fun onPhoneNumberInputEntered(input: String) {
+        val errorId = InputValidator.getPhoneNumberErrorIdOrNull(input)
+        phoneNumberInput.value.errorMessageLabel = errorId
+    }
+
     fun toViewPeopleScreen(navController: NavController) {
         navController.navigate(Screen.ViewUserScreen.route)
     }
 
     fun onContinueClick(navController: NavController) {
-        viewModelScope.launch(Dispatchers.Default) {
+        viewModelScope.launch(Dispatchers.Main) {
             if (validateFields()) {
                 editPersonEntry()
-            }
-            if (validateFields()) {
-                delay(500L)
                 onClearClicked()
                 toViewPeopleScreen(navController)
             }
@@ -87,11 +89,10 @@ class EditPersonScreenViewModel @Inject constructor(
     }
 
     private fun validateFields(): Boolean {
-        return if (
-            firstNameInput.value.text!!.isBlank() || lastNameInput.value.text!!.isBlank()
-            || ageInput.value.text!!.isBlank() || firstNameInput.value.errorMessageLabel != null
-            || lastNameInput.value.errorMessageLabel != null || ageInput.value.errorMessageLabel != null
-        ) false else true
+        return !(firstNameInput.value.text!!.isBlank() || lastNameInput.value.text!!.isBlank()
+                || ageInput.value.text!!.isBlank() || firstNameInput.value.errorMessageLabel != null
+                || lastNameInput.value.errorMessageLabel != null || ageInput.value.errorMessageLabel != null
+                || phoneNumberInput.value.text!!.isBlank() || phoneNumberInput.value.errorMessageLabel != null)
     }
 
     private val db: FirebaseFirestore = Firebase.firestore
@@ -100,6 +101,7 @@ class EditPersonScreenViewModel @Inject constructor(
         firstNameInput.value.text = editPerson.value.data!!.firstName
         lastNameInput.value.text = editPerson.value.data!!.lastName
         ageInput.value.text = editPerson.value.data!!.age.toString()
+        phoneNumberInput.value.text = editPerson.value.data?.phoneNumber ?: ""
     }
 
     private fun editPersonEntry() {
@@ -108,20 +110,25 @@ class EditPersonScreenViewModel @Inject constructor(
             firstNameInput.value.text,
             lastNameInput.value.text,
             ageInput.value.text?.toInt(),
+            phoneNumberInput.value.text,
         )
-        db.collection("people")
-            .document(person.id)
-            .update(
-                "age", person.age,
-                "firstName", person.firstName,
-                "lastName", person.lastName
-            )
+        updatePerson(person)
+    }
+
+    private fun updatePerson(person: Person) {
+        db.collection("people").document(person.id).update(
+            "age", person.age,
+            "firstName", person.firstName,
+            "lastName", person.lastName,
+            "phoneNumber", person.phoneNumber,
+        )
     }
 
     fun onClearClicked() {
         firstNameInput.value.text = ""
         lastNameInput.value.text = ""
         ageInput.value.text = ""
+        phoneNumberInput.value.text = ""
     }
 
 }

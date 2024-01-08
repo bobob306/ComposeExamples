@@ -105,6 +105,24 @@ fun EditPersonScreen(
                     )
                 },
             )
+            ErrorHandlingUserInput(
+                modifier = Modifier
+                    .focusRequester(ageFocusRequester)
+                    .onFocusChanged { /*TODO()*/
+                    }
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp)
+                    .padding(bottom = 8.dp),
+                state = viewModel.phoneNumberInput,
+                onValueChange = viewModel::onPhoneNumberInputEntered,
+                onImeKeyAction = { },
+                keyboardOptions = remember {
+                    KeyboardOptions(
+                        keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Next,
+                    )
+                },
+            )
             ComposeExamplesButton(
                 buttonName = "Save",
                 onClick = {
